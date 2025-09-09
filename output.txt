@@ -1,0 +1,338 @@
+---
+### Utility 1: PDF to Text Converter
+**Purpose**:  
+This utility extracts text from PDF files for further processing, such as text 
+comparison or accessibility testing.
+**Approach**:  
+- Use `PyPDF2` library to read PDF files and extract text from all pages.  
+- Handle errors if the PDF is corrupt or inaccessible.  
+- Save the extracted text to a text file and create a JSON checkpoint with 
+details.
+**Working Code**:  
+```python
+import PyPDF2
+import json
+import os
+def pdf_to_text(pdf_path, output_path="output.txt"):
+    try:
+        with open(pdf_path, 'rb') as file:
+            reader = PyPDF2.PdfReader(file)
+            text = ""
+            for page in reader.pages:
+                text += page.extract_text() + "\n"
+        
+        with open(output_path, 'w', encoding='utf-8') as f:
+            f.write(text)
+        
+        checkpoint = {"original_pdf": pdf_path, "extracted_text_length": 
+len(text), "output_file": output_path}
+        with open("pdf_checkpoint.json", "w") as f:
+            json.dump(checkpoint, f)
+        
+        print(f"Text extracted to {output_path}. Checkpoint saved.")
+        return text
+    except Exception as e:
+        print(f"Error: {e}")
+        return None
+if __name__ == "__main__":
+    pdf_file = input("Enter PDF path: ")
+    if os.path.exists(pdf_file):
+        pdf_to_text(pdf_file)
+    else:
+        print("PDF file not found!")
+```
+**Usage**:  
+- Run the script: `python pdf_to_text.py`.  
+- Enter the PDF file path when prompted.  
+- The extracted text will be saved in `output.txt`, and a `pdf_checkpoint.json` 
+file will be created.
+**Output Example**:  
+- Input PDF: A sample PDF with text "Hello, this is a test document."  
+- `output.txt`: "Hello, this is a test document."  
+- `pdf_checkpoint.json`:  
+  ```json
+  {
+    "original_pdf": "sample.pdf",
+    "extracted_text_length": 28,
+    "output_file": "output.txt"
+  }
+  ```
+---
+### Utility 2: Image Resizer Converter
+**Purpose**:  
+This utility resizes images to specified dimensions for web optimization or 
+storage efficiency.
+**Approach**:  
+- Use `Pillow` library to open and resize images.  
+- Allow users to input desired width and height.  
+- Save the resized image and create a JSON checkpoint with details.
+**Working Code**:  
+```python
+from PIL import Image
+import json
+import os
+def resize_image(image_path, output_path="resized_image.jpg", size=(800, 600)):
+    try:
+        with Image.open(image_path) as img:
+            resized_img = img.resize(size)
+            resized_img.save(output_path)
+        
+        checkpoint = {"original_image": image_path, "size": size, 
+"output_image": output_path}
+        with open("image_checkpoint.json", "w") as f:
+            json.dump(checkpoint, f)
+        
+        print(f"Image resized to {output_path}. Checkpoint saved.")
+        return resized_img
+    except Exception as e:
+        print(f"Error: {e}")
+        return None
+if __name__ == "__main__":
+    image_file = input("Enter image path: ")
+    width = int(input("Enter width: "))
+    height = int(input("Enter height: "))
+    if os.path.exists(image_file):
+        resize_image(image_file, size=(width, height))
+    else:
+        print("Image file not found!")
+```
+**Usage**:  
+- Run the script: `python image_resizer.py`.  
+- Enter the image path, width, and height when prompted.  
+- The resized image will be saved as `resized_image.jpg`, and an 
+`image_checkpoint.json` file will be created.
+**Output Example**:  
+- Input Image: A 1920x1080 image.  
+- `resized_image.jpg`: A new image with 800x600 resolution.  
+- `image_checkpoint.json`:  
+  ```json
+  {
+    "original_image": "sample.jpg",
+    "size": [800, 600],
+    "output_image": "resized_image.jpg"
+  }
+  ```
+---
+### Utility 3: Extract Text from Images
+**Purpose**:  
+This utility extracts text from images using OCR for document digitization or 
+analysis.
+**Approach**:  
+- Use `pytesseract` with Tesseract OCR to recognize text in images.  
+- Handle errors if the image is unreadable or text is absent.  
+- Save the extracted text to a file and create a JSON checkpoint.
+**Working Code**:  
+```python
+import pytesseract
+from PIL import Image
+import json
+import os
+def extract_text_from_image(image_path, output_path="extracted_text.txt"):
+    try:
+        img = Image.open(image_path)
+        text = pytesseract.image_to_string(img)
+        
+        with open(output_path, 'w', encoding='utf-8') as f:
+            f.write(text)
+        
+        checkpoint = {"original_image": image_path, "extracted_text_length": 
+len(text), "output_file": output_path}
+        with open("text_extraction_checkpoint.json", "w") as f:
+            json.dump(checkpoint, f)
+        
+        print(f"Text extracted to {output_path}. Checkpoint saved.")
+        return text
+    except Exception as e:
+        print(f"Error: {e}")
+        return None
+if __name__ == "__main__":
+    image_file = input("Enter image path: ")
+    if os.path.exists(image_file):
+        extract_text_from_image(image_file)
+    else:
+        print("Image file not found!")
+```
+**Usage**:  
+- Run the script: `python extract_text_from_image.py`.  
+- Enter the image path when prompted (ensure Tesseract OCR is installed).  
+- The extracted text will be saved in `extracted_text.txt`, and a 
+`text_extraction_checkpoint.json` file will be created.
+**Output Example**:  
+- Input Image: An image with text "Sample Text Here".  
+- `extracted_text.txt`: "Sample Text Here"  
+- `text_extraction_checkpoint.json`:  
+  ```json
+  {
+    "original_image": "sample_image.png",
+    "extracted_text_length": 14,
+    "output_file": "extracted_text.txt"
+  }
+  ```
+---
+### Utility 4: Speech-to-Text Converter
+**Purpose**:  
+This utility converts audio files to text for transcription or accessibility 
+purposes.
+**Approach**:  
+- Use `SpeechRecognition` with Google Speech Recognition API to process audio.  
+- Handle errors if audio quality is poor or recognition fails.  
+- Save the transcribed text to a file and create a JSON checkpoint.
+**Working Code**:  
+```python
+import speech_recognition as sr
+import json
+import os
+def speech_to_text(audio_path, output_path="transcribed_text.txt"):
+    try:
+        r = sr.Recognizer()
+        with sr.AudioFile(audio_path) as source:
+            audio = r.record(source)
+        text = r.recognize_google(audio)
+        
+        with open(output_path, 'w', encoding='utf-8') as f:
+            f.write(text)
+        
+        checkpoint = {"original_audio": audio_path, "transcribed_text_length": 
+len(text), "output_file": output_path}
+        with open("speech_checkpoint.json", "w") as f:
+            json.dump(checkpoint, f)
+        
+        print(f"Text transcribed to {output_path}. Checkpoint saved.")
+        return text
+    except Exception as e:
+        print(f"Error: {e}")
+        return None
+if __name__ == "__main__":
+    audio_file = input("Enter audio path (WAV): ")
+    if os.path.exists(audio_file):
+        speech_to_text(audio_file)
+    else:
+        print("Audio file not found!")
+```
+**Usage**:  
+- Run the script: `python speech_to_text.py`.  
+- Enter the audio file path (WAV format) when prompted.  
+- The transcribed text will be saved in `transcribed_text.txt`, and a 
+`speech_checkpoint.json` file will be created.
+**Output Example**:  
+- Input Audio: A WAV file saying "This is a test audio."  
+- `transcribed_text.txt`: "This is a test audio."  
+- `speech_checkpoint.json`:  
+  ```json
+  {
+    "original_audio": "test.wav",
+    "transcribed_text_length": 21,
+    "output_file": "transcribed_text.txt"
+  }
+  ```
+---
+### Utility 5: Text-to-Speech Reader
+**Purpose**:  
+This utility converts text to audio for reading aloud or accessibility support.
+**Approach**:  
+- Use `gTTS` to generate audio from text using Google Text-to-Speech.  
+- Play the audio (optional) and save it as an MP3 file.  
+- Create a JSON checkpoint with text and audio details.
+**Working Code**:  
+```python
+from gtts import gTTS
+import pygame
+import json
+import os
+def text_to_speech(text, output_path="output.mp3"):
+    try:
+        tts = gTTS(text=text, lang='en')
+        tts.save(output_path)
+        
+        pygame.mixer.init()
+        pygame.mixer.music.load(output_path)
+        pygame.mixer.music.play()
+        while pygame.mixer.music.get_busy():
+            pygame.time.Clock().tick(10)
+        
+        checkpoint = {"original_text": text, "audio_length": len(text), 
+"output_file": output_path}
+        with open("tts_checkpoint.json", "w") as f:
+            json.dump(checkpoint, f)
+        
+        print(f"Audio saved to {output_path}. Checkpoint saved.")
+    except Exception as e:
+        print(f"Error: {e}")
+if __name__ == "__main__":
+    text = input("Enter text: ")
+    text_to_speech(text)
+```
+**Usage**:  
+- Run the script: `python text_to_speech.py`.  
+- Enter the text when prompted.  
+- The audio will be saved as `output.mp3` and played automatically, with a 
+`tts_checkpoint.json` file created.
+**Output Example**:  
+- Input Text: "Hello, this is a test."  
+- `output.mp3`: An audio file saying "Hello, this is a test."  
+- `tts_checkpoint.json`:  
+  ```json
+  {
+    "original_text": "Hello, this is a test.",
+    "audio_length": 22,
+    "output_file": "output.mp3"
+  }
+  ```
+---
+### Utility 6: JSON to CSV Converter
+**Purpose**:  
+This utility converts JSON data to CSV format for easier analysis or spreadsheet  
+use.
+**Approach**:  
+- Use `pandas` to load JSON data and convert it to CSV.  
+- Handle errors if the JSON is invalid.  
+- Create a JSON checkpoint with conversion details.
+**Working Code**:  
+```python
+import pandas as pd
+import json
+import os
+def json_to_csv(json_path, output_path="output.csv"):
+    try:
+        with open(json_path, 'r') as f:
+            data = json.load(f)
+        
+        df = pd.DataFrame(data)
+        df.to_csv(output_path, index=False)
+        
+        checkpoint = {"original_json": json_path, "rows": len(df), "columns": 
+len(df.columns), "output_file": output_path}
+        with open("json_csv_checkpoint.json", "w") as f:
+            json.dump(checkpoint, f)
+        
+        print(f"CSV saved to {output_path}. Checkpoint saved.")
+    except Exception as e:
+        print(f"Error: {e}")
+if __name__ == "__main__":
+    json_file = input("Enter JSON path: ")
+    if os.path.exists(json_file):
+        json_to_csv(json_file)
+    else:
+        print("JSON file not found!")
+```
+**Usage**:  
+- Run the script: `python json_to_csv.py`.  
+- Enter the JSON file path when prompted.  
+- The converted data will be saved in `output.csv`, and a 
+`json_csv_checkpoint.json` file will be created.
+**Output Example**:  
+- Input JSON: `{"name": "John", "age": 30}`  
+- `output.csv`:  
+  ```
+  name,age
+  John,30
+  ```
+- `json_csv_checkpoint.json`:  
+  ```json
+  {
+    "original_json": "sample.json",
+    "rows": 1,
+    "columns": 2,
+    "output_file": "output.csv"
+  }
+  ```

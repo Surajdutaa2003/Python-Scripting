@@ -1,0 +1,7 @@
+{
+    "mode": "text-to-speech",
+    "original_text": "hi hello how are you",
+    "characters": 20,
+    "output_file": "output.mp3",
+    "timestamp": "2025-09-08 15:40:41"
+}

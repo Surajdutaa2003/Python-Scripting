@@ -1,0 +1,46 @@
+INFO:root:Checkpoint 1: Starting comparison
+INFO:root:Checkpoint 2: Comparison done
+INFO:root:Checkpoint 3: Saved to comparison_checkpoint_1.json
+INFO:root:Checkpoint 1: Starting comparison
+INFO:root:Checkpoint 2: Comparison done
+INFO:root:Checkpoint 3: Saved to comparison_checkpoint_2.json
+INFO:root:Checkpoint 1: Starting comparison
+INFO:root:Checkpoint 2: Comparison done
+INFO:root:Checkpoint 3: Saved to comparison_checkpoint_3.json
+INFO:root:Checkpoint 1: Starting comparison
+INFO:root:Checkpoint 2: Comparison done
+INFO:root:Checkpoint 3: Saved to comparison_checkpoint_4.json
+INFO:root:Checkpoint 1: Starting comparison
+INFO:root:Checkpoint 2: Comparison done
+INFO:root:Checkpoint 3: Saved to comparison_checkpoint_5.json
+INFO:root:Checkpoint 1: Starting comparison
+INFO:root:Checkpoint 2: Comparison done
+INFO:root:Checkpoint 3: Saved to comparison_checkpoint_6.json
+INFO:root:Checkpoint 1: Starting comparison
+INFO:root:Checkpoint 2: Comparison done
+INFO:root:Checkpoint 3: Saved to comparison_checkpoint_7.json
+INFO:root:Checkpoint 1: Starting comparison
+INFO:root:Checkpoint 2: Comparison done
+INFO:root:Checkpoint 3: Saved to comparison_checkpoint_1.json
+INFO:root:Checkpoint 1: Starting comparison
+INFO:root:Checkpoint 2: Comparison done
+INFO:root:Checkpoint 3: Saved to comparison_checkpoint_1.json
+INFO:root:Checkpoint 1: Starting comparison
+INFO:root:Checkpoint 2: Comparison done
+INFO:root:Checkpoint 3: Saved to comparison_checkpoint_2.json
+INFO:root:Checkpoint 1: Starting comparison
+INFO:root:Checkpoint 2: Comparison done
+INFO:root:Checkpoint 3: Saved to comparison_checkpoint_3.json
+INFO:root:Checkpoint 1: Starting comparison
+INFO:root:Checkpoint 2: Comparison done
+INFO:root:Checkpoint 3: Saved to comparison_checkpoint_1.json
+INFO:root:Checkpoint 1: Starting comparison
+INFO:root:Checkpoint 2: Comparison done
+INFO:root:Checkpoint 3: Saved to comparison_checkpoint_2.json
+INFO:root:Checkpoint 1: Starting comparison
+INFO:root:Checkpoint 2: Comparison done
+INFO:root:Checkpoint 3: Saved to comparison_checkpoint_1.json
+INFO:root:Checkpoint 1: Starting comparison
+INFO:root:Checkpoint 2: Comparison done
+INFO:root:Checkpoint 3: Saved to comparison_checkpoint_1.json
+ERROR:root:Checkpoint: Empty input
